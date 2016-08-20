@@ -1,0 +1,19 @@
+{
+  "name": "mocha-brackets",
+  "version": "0.0.1",
+  "description": "The simplest interface to mocha, plus support for dependency injection.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "testing",
+    "mocha"
+  ],
+  "author": "Aaron Boyd",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.15.0",
+    "mocha": "^3.0.2"
+  }
+}
