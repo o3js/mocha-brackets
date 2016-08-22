@@ -54,21 +54,20 @@ const isCollection = (arr) => _.isArray(arr)
 	&& _.every(arr, _.isArray);
 
 function load(dependencyFactories, arr) {
-  (function _load(_arr) {
-    if (isCollection(_arr)) {
-      _.each(arr, _load);
-    } else if (isSuite(_arr)) {
-      suite(_.first(arr), () => _.each(_.tail(_arr), _load));
-    } else if (isTest) {
-      test(
-        _.first(arr),
-        () => inject(
-          arr[1],
-          _.mapValues(dependencyFactories, (fn) => fn())));
-    } else {
-      throw new Error('Invalid test structure', _arr);
-    }
-  }(arr));
+  const recur = _.partial(dependencyFactories);
+  if (isCollection(arr)) {
+    _.each(arr, recur);
+  } else if (isSuite(arr)) {
+    suite(_.first(arr), () => _.each(_.tail(arr), recur));
+  } else if (isTest) {
+    test(
+      _.first(arr),
+      () => inject(
+        arr[1],
+        _.mapValues(dependencyFactories, (fn) => fn())));
+  } else {
+    throw new Error('Invalid test structure', arr);
+  }
 }
 
 module.exports = { load };
