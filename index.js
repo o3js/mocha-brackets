@@ -42,9 +42,9 @@ function inject(fn, ...args) {
 }
 
 const isTest = (arr) => _.isArray(arr)
-	&& arr.length === 2
-	&& _.isString(arr[0])
-	&& _.isFunction(arr[1]);
+        && arr.length === 2
+        && _.isString(arr[0])
+        && _.isFunction(arr[1]);
 
 const isSuite = (arr) => _.isArray(arr)
 	&& _.isString(arr[0])
@@ -54,21 +54,21 @@ const isCollection = (arr) => _.isArray(arr)
 	&& _.every(arr, _.isArray);
 
 function load(dependencyFactories, arr) {
-  (function _load(arr) {
-    if (isCollection(arr)) {
+  (function _load(_arr) {
+    if (isCollection(_arr)) {
       _.each(arr, _load);
-    } else if (isSuite(arr)) {
-      suite(_.first(arr), () => _.each(_.tail(arr), _load));
+    } else if (isSuite(_arr)) {
+      suite(_.first(arr), () => _.each(_.tail(_arr), _load));
     } else if (isTest) {
       test(
-	_.first(arr),
-	() => {
-	  return inject(arr[1], _.mapValues(dependencyFactories, (fn) => fn() ));
-	});
+        _.first(arr),
+        () => inject(
+          arr[1],
+          _.mapValues(dependencyFactories, (fn) => fn())));
     } else {
-      throw new Error('Invalid test structure', arr);
+      throw new Error('Invalid test structure', _arr);
     }
   }(arr));
 }
 
-module.exports = {load};
+module.exports = { load };
