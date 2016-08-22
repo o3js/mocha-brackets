@@ -54,7 +54,7 @@ const isCollection = (arr) => _.isArray(arr)
 	&& _.every(arr, _.isArray);
 
 function load(dependencyFactories, arr) {
-  const recur = _.partial(dependencyFactories);
+  const recur = _.partial(load, dependencyFactories);
   if (isCollection(arr)) {
     _.each(arr, recur);
   } else if (isSuite(arr)) {
