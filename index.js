@@ -59,14 +59,14 @@ function load(dependencyFactories, arr) {
     _.each(arr, recur);
   } else if (isSuite(arr)) {
     suite(_.first(arr), () => _.each(_.tail(arr), recur));
-  } else if (isTest) {
+  } else if (isTest(arr)) {
     test(
       _.first(arr),
       () => inject(
         arr[1],
         _.mapValues(dependencyFactories, (fn) => fn())));
   } else {
-    throw new Error('Invalid test structure', arr);
+    throw new Error('Invalid test structure: ' + JSON.stringify(arr));
   }
 }
 

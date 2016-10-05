@@ -13,8 +13,7 @@
   "author": "Aaron Boyd",
   "license": "ISC",
   "dependencies": {
-    "lodash": "^4.15.0",
-    "mocha": "^3.0.2"
+    "lodash": "^4.15.0"
   },
   "devDependencies": {
     "eslint": "^3.3.1",
