@@ -1,6 +1,6 @@
 {
   "name": "mocha-brackets",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The simplest interface to mocha, plus support for dependency injection.",
   "main": "index.js",
   "scripts": {
