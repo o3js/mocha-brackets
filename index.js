@@ -42,9 +42,9 @@ function inject(fn, ...args) {
 }
 
 const isTest = (arr) => _.isArray(arr)
-        && arr.length === 2
+        && arr.length >= 2
         && _.isString(arr[0])
-        && _.isFunction(arr[1]);
+        && (_.isNull(arr[1]) || _.isFunction(arr[1]));
 
 const isSuite = (arr) => _.isArray(arr)
 	&& _.isString(arr[0])
@@ -62,9 +62,11 @@ function load(dependencyFactories, arr) {
   } else if (isTest(arr)) {
     test(
       _.first(arr),
-      () => inject(
-        arr[1],
-        _.mapValues(dependencyFactories, (fn) => fn())));
+      _.isNull(arr[1])
+        ? null
+        : () => inject(
+          arr[1],
+          _.mapValues(dependencyFactories, (fn) => fn())));
   } else {
     throw new Error('Invalid test structure: ' + JSON.stringify(arr));
   }
